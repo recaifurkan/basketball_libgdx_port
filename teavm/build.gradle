@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'org.gretty'
+}
+
+gretty {
+    contextPath = '/'
+    extraResourceBase 'build/dist/webapp'
+}
+
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
+project.ext.mainClassName = 'com.rfbsoft.client.TeaVMBuilder'
+eclipse.project.name = appName + '-teavm'
+
+dependencies {
+    implementation "com.github.xpenatan.gdx-teavm:backend-teavm:$gdxTeaVMVersion"
+    implementation "com.github.xpenatan.gdx-teavm:gdx-bullet-teavm:$gdxTeaVMVersion"
+    implementation "com.github.xpenatan.gdx-imgui:core-teavm:$jDearImguiVersion"
+    implementation project(':core-teavm')
+
+}
+
+task buildJavaScript(dependsOn: classes, type: JavaExec) {
+    setDescription("Transpile bytecode to JavaScript via TeaVM")
+    mainClass.set(project.mainClassName)
+    setClasspath(sourceSets.main.runtimeClasspath)
+}
+build.dependsOn buildJavaScript
+
+task run(dependsOn: [buildJavaScript, ":teavm:jettyRun"]) {
+    setDescription("Run the JavaScript application hosted via a local Jetty server at http://localhost:8080/")
+}

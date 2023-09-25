@@ -1,0 +1,7 @@
+ffmpeg -i video.webm -vf "scale=256:256,fps=25" frame/video/%04d.png
+
+
+ffmpeg -i video.webm -acodec libmp3lame sound/video.mp3
+
+
+ffmpeg -i video.ogg -acodec libmp3lame video.mp3
