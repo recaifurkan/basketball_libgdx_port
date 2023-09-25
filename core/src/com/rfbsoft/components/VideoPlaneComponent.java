@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.video.VideoPlayer;
-import com.badlogic.gdx.video.VideoPlayerCreator;
+import com.rfbsoft.utils.VideoPlayerCreator;
 import com.rfbsoft.utils.VideoPlayerStub;
 
 import java.io.FileNotFoundException;
@@ -13,11 +13,7 @@ public class VideoPlaneComponent implements Component {
     public VideoPlayer videoPlayer;
 
     public VideoPlaneComponent(String fileName) {
-        try {
-            videoPlayer =VideoPlayerCreator.createVideoPlayer();
-        } catch (Exception e) {
-            videoPlayer = new VideoPlayerStub(fileName);
-        }
+        videoPlayer = VideoPlayerCreator.createVideoPlayer(fileName);
         videoPlayer.setOnCompletionListener(new VideoPlayer.CompletionListener() {
             @Override
             public void onCompletionListener(FileHandle file) {

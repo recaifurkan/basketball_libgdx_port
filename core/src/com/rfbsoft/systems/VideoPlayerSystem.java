@@ -9,6 +9,8 @@ import com.badlogic.gdx.video.VideoPlayer;
 import com.rfbsoft.components.ModelInstanceComponent;
 import com.rfbsoft.components.VideoPlaneComponent;
 
+import java.util.Objects;
+
 public class VideoPlayerSystem extends EntitySystem {
     private final ComponentMapper<VideoPlaneComponent> videoPlaneComponentComponentMapper = ComponentMapper.getFor(VideoPlaneComponent.class);
     private final ComponentMapper<ModelInstanceComponent> modelInstanceComponentComponentMapper = ComponentMapper.getFor(ModelInstanceComponent.class);
@@ -28,6 +30,7 @@ public class VideoPlayerSystem extends EntitySystem {
             videoPlayer.update();
             if (videoPlayer.isBuffered()) {
                 Texture frame = videoPlayer.getTexture();
+                if(frame == null) return;
                 for (Material material : modelComponent.modelInstance.materials) {
                     TextureAttribute attribute = material.get(TextureAttribute.class, TextureAttribute.Diffuse);
                     attribute.textureDescription.texture = frame;
