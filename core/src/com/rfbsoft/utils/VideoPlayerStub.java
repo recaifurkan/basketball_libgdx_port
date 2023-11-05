@@ -143,4 +143,9 @@ public class VideoPlayerStub implements VideoPlayer {
     public boolean isLooping() {
         return audio.isLooping();
     }
+
+    @Override
+    public void setFilter(Texture.TextureFilter minFilter, Texture.TextureFilter magFilter) {
+
+    }
 }
