@@ -18,7 +18,7 @@ public class ConsoleCommands extends CommandExecutor {
     public ConsoleCommands() {
 
         Skin skin = new Skin(Gdx.files.classpath("default_skin/uiskin.json"), new TextureAtlas(Gdx.files.classpath("default_skin/uiskin.atlas")));
-        console = new GUIConsole(skin, true, Input.Keys.PERIOD);
+        console = new GUIConsole(skin, true, Input.Keys.C);
         console.setCommandExecutor(this);
         console.setSizePercent(50, 50);
         console.enableSubmitButton(true);

@@ -50,6 +50,16 @@ public class VideoPlayerStub implements VideoPlayer {
     }
 
     @Override
+    public boolean load(FileHandle file) throws FileNotFoundException {
+        return false;
+    }
+
+    @Override
+    public void play() {
+
+    }
+
+    @Override
     public boolean play(FileHandle file) throws FileNotFoundException {
         audio.play();
         return true;
