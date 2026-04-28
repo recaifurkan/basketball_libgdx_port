@@ -9,8 +9,27 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.math.Vector3;
 import com.rfbsoft.entities.StaticObject;
-import com.rfbsoft.initializer.entity.*;
-import com.rfbsoft.systems.*;
+import com.rfbsoft.initializer.entity.AbstractInitializer;
+import com.rfbsoft.initializer.entity.CarInitializer;
+import com.rfbsoft.initializer.entity.CubeMonkeyInitializer;
+import com.rfbsoft.initializer.entity.CubeTerrainInitializer;
+import com.rfbsoft.initializer.entity.G3djCharacterAnimatedModelInitializer;
+import com.rfbsoft.initializer.entity.Initializer;
+import com.rfbsoft.initializer.entity.ModelledKinematicPhysicsInitializer;
+import com.rfbsoft.initializer.entity.ModelledStaticPhysicInitializer;
+import com.rfbsoft.initializer.entity.SensorInitializer;
+import com.rfbsoft.initializer.entity.VideoPlaneInitializer;
+import com.rfbsoft.systems.AnimationSystem;
+import com.rfbsoft.systems.BulletSystem;
+import com.rfbsoft.systems.CharacterAnimationSystem;
+import com.rfbsoft.systems.DebugBulletSystem;
+import com.rfbsoft.systems.FirstPersonCameraSystem;
+import com.rfbsoft.systems.InGameConsoleSystem;
+import com.rfbsoft.systems.InputSystem;
+import com.rfbsoft.systems.ModelInstanceBulletPositionSystem;
+import com.rfbsoft.systems.ModelInstanceRenderSystem;
+import com.rfbsoft.systems.VehicleSystem;
+import com.rfbsoft.systems.VideoPlayerSystem;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,6 +46,7 @@ public class Init {
         put("monkey", new CubeMonkeyInitializer("monkey"));
         put("player", new G3djCharacterAnimatedModelInitializer("character"));
         put("videoPlane", new VideoPlaneInitializer("videoPlane"));
+        put("car", new CarInitializer());
     }};
 
     public void loadGameEntities(Engine engine) {
@@ -39,6 +59,7 @@ public class Init {
         INITIALIZER_MAP.get("monkey").initialize(engine, new Vector3(3, 10, 3));
         INITIALIZER_MAP.get("player").initialize(engine, new Vector3(-20, 10, 20));
         INITIALIZER_MAP.get("videoPlane").initialize(engine);
+        INITIALIZER_MAP.get("car").initialize(engine);
 
 
         List<AbstractInitializer> initalizers = Arrays.asList(
@@ -94,7 +115,8 @@ public class Init {
                 new DebugBulletSystem(),
                 new InGameConsoleSystem(),
                 new CharacterAnimationSystem(),
-                new AnimationSystem()
+                new AnimationSystem(),
+                new VehicleSystem()
         );
         for (EntitySystem entitySystem : systems) {
             engine.addSystem(entitySystem);
